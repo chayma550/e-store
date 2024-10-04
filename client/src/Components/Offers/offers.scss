@@ -1,0 +1,36 @@
+@import "../../responsive.scss";
+
+.offers{
+    margin-top: 4rem;
+    display: flex;
+    align-items: center;
+    gap:60px;
+    @include sm{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin-bottom: 2rem;
+    }
+    .offerItem{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap:20px;
+
+        img{
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+        }
+        span{
+            font-size: 14px;
+            color:#444;
+            font-weight: 500;
+            @include md{
+                width: 70%;
+            }
+        }
+    }
+}

@@ -1,0 +1,172 @@
+@import "../../responsive.scss";
+
+.feature {
+  .feature-container {
+    margin: 100px 200px;
+
+    .top {
+      position: relative;
+      h1 {
+        text-align: center;
+        letter-spacing: 5px;
+      }
+    }
+
+    .arrow {
+      position: absolute;
+      right: 0;
+      display: flex;
+      margin-top: 15px;
+      color: #555;
+      letter-spacing: 3px;
+      margin-right: -130px;
+      align-items: center;
+      font-size: 12px;
+      justify-content: flex-end;
+      cursor: pointer;
+    }
+
+    .bottom {
+      margin-top: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 50px;
+      margin-bottom: 2rem;
+      width: 100%; // Ensure it takes the full width
+      .slick-slider {
+        width: 100%; // Ensure the slider takes the full width
+      }
+    }
+  }
+
+  .bg_parallax_scroll {
+    background: url("https://static.e-stradivarius.net/assets/public/eb6c/cfa1/fa0a4ccdb252/be352168fe8c/2400casualdenimv2/2400casualdenimv2.jpg?ts=1726473510621&w=1898.75") no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100%;
+    height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .details {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 20px;
+      text-align: center;
+
+      .sm {
+        color: white;
+        font-weight: 500;
+      }
+
+      h1 {
+        font-size: 80px;
+        letter-spacing: 30px;
+        color: black;
+      }
+
+      .bg {
+        color: white;
+        font-size: 20px;
+        font-weight: 700;
+      }
+
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: black;
+        color: white;
+        border: none;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #333;
+        }
+      }
+    }
+  }
+
+  // Responsive Styles
+  @include sm {
+    .feature-container {
+      margin: 50px 20px; 
+
+      .top {
+        h1 {
+          font-size: 24px; 
+        }
+
+        .arrow {
+          margin-right: 10px; 
+          margin-top: 10px;
+        }
+      }
+
+      .bottom {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 50px; 
+        margin-top: 3rem;
+        margin-bottom: 1rem;
+      }
+    }
+
+    .bg_parallax_scroll {
+      height: 400px; 
+
+      .details {
+        h1 {
+          font-size: 20px;
+        }
+
+        .bg {
+          font-size: 16px; 
+        }
+
+        button {
+          padding: 8px 16px; 
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  @include md {
+    .feature-container {
+      margin: 80px 50px; 
+
+      .bottom {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 30px;
+      }
+    }
+
+    .bg_parallax_scroll {
+      height: 500px; 
+
+      .details {
+        h1 {
+          font-size: 24px; 
+        }
+
+        .bg {
+          font-size: 18px; 
+        }
+
+        button {
+          padding: 9px 18px; 
+          font-size: 15px;
+        }
+      }
+    }
+  }
+}

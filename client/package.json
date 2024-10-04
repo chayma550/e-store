@@ -1,0 +1,72 @@
+{
+  "name": "e-store",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^5.16.6",
+    "@mui/material": "^5.16.6",
+    "@stripe/react-stripe-js": "^2.8.0",
+    "@stripe/stripe-js": "^4.4.0",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "aos": "^2.3.4",
+    "axios": "^1.7.4",
+    "bootstrap": "^5.3.3",
+    "emailjs-com": "^3.2.0",
+    "firebase": "^10.13.0",
+    "gsap": "^3.12.5",
+    "i18next": "^23.15.1",
+    "leaflet": "^1.9.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-i18next": "^15.0.1",
+    "react-leaflet": "^4.2.1",
+    "react-loading-skeleton": "^3.5.0",
+    "react-router": "^6.26.0",
+    "react-router-dom": "^6.26.0",
+    "react-scripts": "5.0.1",
+    "react-slick": "^0.30.2",
+    "react-spinners": "^0.14.1",
+    "react-stripe-checkout": "^2.6.3",
+    "sass": "^1.77.8",
+    "slick-carousel": "^1.8.1",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+  "clean": "rimraf build",
+  "lint": "eslint src",
+  "prebuild": "npm run lint || true && npm run clean",
+  "build": "cross-env CI=false react-scripts build"
+},
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ],
+    "rules": {
+      "no-unused-vars": "warn"
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.57.1",
+    "prettier": "^3.3.3",
+    "rimraf": "^6.0.1"
+  }
+}

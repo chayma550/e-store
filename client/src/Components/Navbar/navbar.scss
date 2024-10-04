@@ -1,0 +1,344 @@
+@import "../../responsive.scss";
+
+.navbar {
+    height: 100px;
+
+    .wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .link {
+            transition: all 0.5s ease;
+
+            &:hover {
+                transform: scale(1.05);
+            }
+            
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            @include sm{
+                display: none;
+            }
+            @include md{
+                display: none;
+            }
+            .links{
+                display: flex;
+                align-items: center;
+                gap:20px;
+                font-size: 23px;
+                
+            }
+        
+        }
+     
+
+        .left {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+
+            @include sm {
+                display: none;
+            }
+        }
+
+        .center {
+            display: flex;
+            align-items: center;
+
+            .logo {
+                cursor: pointer;
+                font-size: 34px;
+                font-weight: bold;
+               
+
+                .dot {
+                    font-weight: bold;
+                    font-size: 40px;
+                   
+                }
+
+                .text {
+                    font-weight: 800;
+                    
+                }
+            }
+        }
+
+        .right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+
+            .icons {
+                display: flex;
+                gap: 15px;
+                align-items: center;
+                cursor: pointer;
+                color: #555;
+
+                .user {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 20px;
+                    @include sm{
+                        display: none;
+                    }
+                    @include md{
+                        display: none;
+                    }
+                   
+
+                  
+
+                    img {
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                        cursor: pointer;
+                    }
+                }
+
+                .cartIcon {
+                    position: relative;
+
+                    span {
+                        font-size: 12px;
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 50%;
+                        background-color: #999;
+                        color: white;
+                        position: absolute;
+                        right: -10px;
+                        top: -10px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+
+                .favoriteBorder {
+                    position: relative;
+                    z-index: 9999; // Ensure it's above other elements
+                    cursor: pointer; // Ensure the cursor changes to pointer on hover
+                }
+            }
+
+            .menu {
+                position: fixed;
+                top: 0;
+                right: -250px; // Adjust if necessary
+                background-color: white;
+                color: black;
+                height: 100vh;
+                width: 250px; 
+                transition: right 0.3s ease;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                font-size: 24px;
+                z-index: 998; 
+
+                &.active {
+                    right: 0;
+                }
+
+                .searchBar {
+                    display: flex;
+                    align-items: center;
+                    position: absolute;
+                    top: 150px;
+                    left: 20px;
+                    gap: 4px;
+
+                    input {
+                        border: none;
+                    }
+                }
+
+                .top {
+                    position: absolute;
+                    top: 30px;
+                    right: 20px; 
+                    display: flex;
+                    gap: 20px;
+                    align-items: center;
+
+                    .link {
+                        display: initial;
+                    }
+                    .userSm{
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        gap: 20px;
+    
+                      
+    
+                        img {
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 50%;
+                            object-fit: cover;
+                            cursor: pointer;
+                        }
+                    }
+                }
+
+                .menuItems {
+                    display: flex;
+                    flex-direction: column;
+                    margin-top: 2rem;
+                    gap: 20px;
+                    font-size: 18px;;
+                    color: #555;
+                    font-weight: 500;
+                  
+                   .categories{
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+                    .catText{
+                        display: flex;
+                        align-items: center;
+                        font-size: 18px;
+                    }
+                    .links {
+                        opacity: 0;
+                        transform: translateY(-10px);  /* Start slightly above */
+                        max-height: 0;
+                        overflow: hidden;
+                        transition: all 0.4s ease-in-out;
+                    }
+                    .links.open {
+                        margin-top: 1rem;
+                        gap:5px;
+                        display: flex;
+                        flex-direction: column;
+                        opacity: 1;
+                        transform: translateY(0);  
+                        max-height: 500px; 
+                    }
+                   }
+                  
+                
+                
+                }
+            }
+
+            .menuIcon {
+                display: none;
+                z-index: 1; // Ensure it’s visible
+                img{
+                    width: 36px;
+                    height: 36px;
+                    cursor: pointer;
+                }
+            }
+        }
+        
+    }
+
+    @include sm {
+        .wrapper {
+           display: flex;
+           align-items: center;
+           margin-top: 1rem;
+           .center{
+            display: flex;
+            align-items: center;
+            .logo{
+                display: flex;
+                align-items: center;
+                .dot{
+                    font-size: 30px;
+                }
+                .text{
+                    font-size: 25px;
+                }
+            }
+           }
+            .right {
+                .icons {
+                    .searchIcon, .favoriteBorder {
+                        display: none;
+                    }
+
+
+                    .cartIcon {
+                        position: relative;
+                        cursor: pointer;
+                        z-index: 10; // Ensure it's above other elements
+                      
+                        span {
+                          font-size: 12px;
+                          width: 20px;
+                          height: 20px;
+                          border-radius: 50%;
+                          background-color: #999;
+                          color: white;
+                          position: absolute;
+                          right: -10px;
+                          top: -10px;
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                        }
+                      
+                        @include sm {
+                          span {
+                            font-size: 10px;
+                            width: 18px;
+                            height: 18px;
+                          }
+                        }
+                    }
+                }
+
+                .menuIcon {
+                    display: flex;
+
+                }
+            }
+        }
+    }
+
+    @include md {
+        .wrapper {
+            .left{
+                display: none;
+            }
+            .right {
+                .icons {
+                    .searchIcon, .favoriteBorder {
+                        display: none; 
+                    }
+
+                    .cartIcon {
+                        span {
+                            font-size: 10px;
+                            width: 18px;
+                            height: 18px;
+                        }
+                    }
+                }
+
+                .menuIcon {
+                    display: initial;
+                }
+            }
+        }
+    }
+}
