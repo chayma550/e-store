@@ -3,83 +3,74 @@ import CryptoJS from "crypto-js";
 import Jwt from "jsonwebtoken"
 import createError from "../utils/createError.js";
 
-export const register=async(req,res,next)=>{
-
- const newUser=new User({
+export const register = async (req, res, next) => {
+  const newUser = new User({
     ...req.body,
-    password: CryptoJS.AES.encrypt(req.body.password,process.env.PASS_SEC).toString()
+    password: CryptoJS.AES.encrypt(req.body.password, process.env.PASS_SEC).toString()
+  });
 
- })
-    try{
-        const savedUser=await newUser.save()
-        
-        const accessToken=Jwt.sign({
-           id: savedUser._id , 
-        },process.env.JWT_SEC,{expiresIn:"3d"});
-         // Set cookie with the access token
+  try {
+    const savedUser = await newUser.save();
+    const accessToken = Jwt.sign(
+      { id: savedUser._id },
+      process.env.JWT_SEC,
+      { expiresIn: "3d" }
+    );
+
+    // Set cookie with the access token
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      secure: true, // Set to true in production
-      sameSite: "None", // Allow cross-site cookies
+      secure: process.env.NODE_ENV === "production",  // Set to true in production
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",  // None for cross-site in production, Lax in dev
     });
-        res.status(201).json({savedUser,accessToken})
 
+    res.status(201).json({ savedUser, accessToken });
+  } catch (err) {
+    next(err);
+  }
+};
 
-    }catch(err){
-        next(err)
-    }
-}
 
 
 export const login = async (req, res, next) => {
-    try {
-      const user = await User.findOne({
-        username: req.body.username,
-      });
-      if (!user) return next(createError(404, "User not found!!"));
-  
-      const hashedPassword = CryptoJS.AES.decrypt(
-        user.password,
-        process.env.PASS_SEC
-      );
-      const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
-  
-      const inputPassword = req.body.password;
-  
-      if (originalPassword !== inputPassword) {
-        return next(createError(400, "Wrong password!!"));
-      }
-  
-      const accessToken = Jwt.sign(
-        {
-          id: user._id,
-          isAdmin:user.isAdmin,
+  try {
+    const user = await User.findOne({ username: req.body.username });
+    if (!user) return next(createError(404, "User not found!"));
 
-        },
-        process.env.JWT_SEC,
-        { expiresIn: "3d" }
-      );
-  
-      const { password,isAdmin, ...others } = user._doc;
-      res
-      .cookie("accessToken", accessToken, {
-        httpOnly: true,
-        secure: true, // Set to true in production
-        sameSite: "None", // Allow cross-site cookies
-      })
-      .status(200)
-      .json({ ...others, accessToken,isAdmin });
-    } catch (err) {
-      next(err);
+    const hashedPassword = CryptoJS.AES.decrypt(user.password, process.env.PASS_SEC);
+    const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
+
+    if (originalPassword !== req.body.password) {
+      return next(createError(400, "Wrong password!"));
     }
-  };
+
+    const accessToken = Jwt.sign(
+      { id: user._id, isAdmin: user.isAdmin },
+      process.env.JWT_SEC,
+      { expiresIn: "3d" }
+    );
+
+    const { password, isAdmin, ...others } = user._doc;
+    
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",  // Set to true in production
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",  // Allow cross-site cookies in production
+    })
+    .status(200)
+    .json({ ...others, isAdmin, accessToken });
+  } catch (err) {
+    next(err);
+  }
+};
+
 
 export const logout = async (req, res) => {
-    res
-      .clearCookie("accessToken", {
-        sameSite: "none",
-        secure: true,
-      })
-      .status(200)
-      .send("User has been logged out.");
-  };
+  res.clearCookie("accessToken", {
+    httpOnly: true,
+    sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // Same rules as login
+    secure: process.env.NODE_ENV === "production", // Only send over HTTPS in production
+  })
+  .status(200)
+  .send("User has been logged out.");
+};
