@@ -24,22 +24,12 @@ console.log("DB connecting ")).catch((err)=>{
 })
 
 //middlewares:
-const allowedOrigins = [
-  "http://localhost:3000", 
-  "http://localhost:4000",
-  process.env.FRONTEND_URL
-];
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    } else {
-      return callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true
-}));
+
+const corsOptions = {
+  origin: process.env.FRONTEND_URL || "http://localhost:3000", 
+  credentials: true,
+};
+app.use(cors(corsOptions)); 
 
 
 app.use(bodyParser.json());
