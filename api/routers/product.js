@@ -4,7 +4,7 @@ import { addProduct, deleteProduct,  getProduct, getProducts, getProductsByIds, 
 const router = express.Router();
 
 router.post("/",verifyTokenAdmin,addProduct)
-router.post('/bulk',verifyToken ,getProductsByIds);
+router.post('/bulk',getProductsByIds);
 router.put("/:id",verifyTokenAdmin,updateProduct)
 router.delete("/:id",verifyTokenAdmin,deleteProduct)
 router.get("/:id",getProduct)
