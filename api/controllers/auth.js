@@ -12,16 +12,16 @@ export const register = async (req, res, next) => {
   try {
     const savedUser = await newUser.save();
     const accessToken = Jwt.sign(
-      { id: savedUser._id },
+      { id: savedUser._id }, // Use savedUser's _id, not User._id
       process.env.JWT_SEC,
       { expiresIn: "3d" }
     );
 
     // Set cookie with the access token
-    res.cookie("accessToken", accessToken, {
+    res.cookie("accesstoken", accessToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",  // Set to true in production
-      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",  // None for cross-site in production, Lax in dev
+      secure: true, // Set to true in production
+      sameSite: "None", // Allow cross-site cookies
     });
 
     res.status(201).json({ savedUser, accessToken });
@@ -52,13 +52,14 @@ export const login = async (req, res, next) => {
 
     const { password, isAdmin, ...others } = user._doc;
     
-    res.cookie("accessToken", accessToken, {
+    res
+    .cookie("accesstoken", accessToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",  // Set to true in production
-      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",  // Allow cross-site cookies in production
+      secure: true, // Set to true in production
+      sameSite: "None", // Allow cross-site cookies
     })
     .status(200)
-    .json({ ...others, isAdmin, accessToken });
+    .json({ ...others, accessToken });
   } catch (err) {
     next(err);
   }
@@ -66,10 +67,10 @@ export const login = async (req, res, next) => {
 
 
 export const logout = async (req, res) => {
-  res.clearCookie("accessToken", {
-    httpOnly: true,
-    sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // Same rules as login
-    secure: process.env.NODE_ENV === "production", // Only send over HTTPS in production
+  res
+  .clearCookie("accesstoken", {
+    sameSite: "None", // Allow cross-site cookies
+    secure: true, // Set to true in production
   })
   .status(200)
   .send("User has been logged out.");
