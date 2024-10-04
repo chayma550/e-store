@@ -197,13 +197,13 @@
     padding: 10px;
 
     .left {
-        display: flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
       .mainImg {
         img {
-          width: 350px; 
+          width: 400px; 
           height: auto;
           object-fit: cover;
         }
@@ -221,6 +221,13 @@
     }
 
     .right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      h1{
+        text-align: center;
+      }
       .price {
         font-size: 24px;
       }

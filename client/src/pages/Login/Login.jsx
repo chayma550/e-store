@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react'
 import "./login.scss"
 import { Link, useNavigate } from 'react-router-dom'
 import GoogleIcon from '@mui/icons-material/Google';
-import FacebookIcon from '@mui/icons-material/Facebook';
 import { AuthContext } from '../../Context/AuthContext';
 import apiRequest from '../../lib/apiRequest';
 import { signInWithPopup } from 'firebase/auth';
@@ -59,7 +58,6 @@ const Login = () => {
       <div className="right-side">
         <div className="login-box">
             <div className="top">
-          <h2>Welcome to </h2>
           <div className="logo">
                 <span className='dot'>.</span>
                 <span className='text'>STORE</span>
