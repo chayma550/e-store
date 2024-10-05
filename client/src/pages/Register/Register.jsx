@@ -36,7 +36,6 @@ const Register = () => {
         <div className="register-box">
           <h2>Create Account</h2>
           <div className="icons">
-          <FacebookIcon className='icon'/>
           <GoogleIcon className='icon'/>
           </div>
           
